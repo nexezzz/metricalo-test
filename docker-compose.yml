@@ -1,0 +1,61 @@
+version: '3.8'
+services:
+  api_app:
+    build:
+      context: ./src/api/
+      dockerfile: ../../docker_api/development/Dockerfile
+    container_name: api_app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - ./src/api:/var/www
+    networks:
+      - nexus
+
+  api_app_web:
+    image: nginx:alpine
+    container_name: api_app_web
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./src/api:/var/www
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./docker/nginx/snippets:/etc/nginx/snippets
+    networks:
+      - nexus
+
+  database:
+    image: postgres:16
+    container_name: database
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: postgresql
+      POSTGRES_PASSWORD: postgresql
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    networks:
+      - nexus
+
+  client_app:
+    container_name: client_app
+    build:
+      context: ./src/client/
+      dockerfile: ../../docker_client/development/Dockerfile
+    volumes:
+      - ./src/client:/app
+    ports:
+      - 3000:3000
+    restart: always
+    networks:
+      - nexus
+
+networks:
+  nexus:
+    driver: bridge
+
+volumes:
+  dbdata:
