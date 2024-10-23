@@ -2,7 +2,28 @@
 FROM php:8.2-fpm
 
 # Install system dependencies and PHP extensions
+# RUN apt-get update && apt-get install -y \
+#     libzip-dev \
+#     libpng-dev \
+#     libjpeg-dev \
+#     libfreetype6-dev \
+#     libicu-dev \
+#     g++ \
+#     zlib1g-dev \
+#     libxml2-dev \
+#     git \
+#     unzip \
+#     && docker-php-ext-configure gd --with-freetype --with-jpeg \
+#     && docker-php-ext-install gd \
+#     && docker-php-ext-install intl \
+#     && docker-php-ext-install zip \
+#     && docker-php-ext-install pdo pdo_mysql \
+#     && docker-php-ext-install pdo_pgsql \
+#     && pecl install xdebug \
+#     && docker-php-ext-enable xdebug
+# Install system dependencies and PHP extensions
 RUN apt-get update && apt-get install -y \
+    libpq-dev \
     libzip-dev \
     libpng-dev \
     libjpeg-dev \
@@ -14,10 +35,7 @@ RUN apt-get update && apt-get install -y \
     git \
     unzip \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd \
-    && docker-php-ext-install intl \
-    && docker-php-ext-install zip \
-    && docker-php-ext-install pdo pdo_mysql \
+    && docker-php-ext-install -j$(nproc) gd intl zip pdo pdo_mysql pdo_pgsql \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug
 

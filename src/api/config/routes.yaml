@@ -1,5 +1,15 @@
-controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+# controllers:
+#     resource:
+#         path: ../src/Controller/
+#         namespace: App\Controller
+#     type: attribute
+# config/routes.yaml
+user_routes:
+  resource: '../src/User/Infrastructure/Routes/user.yaml'
+  prefix: /api/users
+  type: yaml
+
+post_routes:
+  resource: '../src/Post/Infrastructure/Routes/post.yaml'
+  prefix: /api/posts
+  type: yaml
