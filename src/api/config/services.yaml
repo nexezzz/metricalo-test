@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    shift4.api_url: '%env(SHIFT4_API_URL)%'
+    aci.api_url: '%env(ACI_API_URL)%'
 
 services:
     # default configuration for services in *this* file
@@ -22,3 +24,31 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Payment\Application\Controller\:
+        resource: '../src/Payment/Application/Controller'
+        tags: ['controller.service_arguments']
+    App\Payment\Domain\Service\:
+        resource: '../src/Payment/Domain/Service'
+    App\Payment\Infrastructure\Persistence\:
+        resource: '../src/Payment/Infrastructure/Persistence'
+
+    App\Payment\Domain\Provider\ACI\:
+        resource: '../src/Payment/Domain/Provider/ACI/*'
+        tags: ['app.payment_provider']
+        arguments:
+            $httpClient: '@http_client'
+            $apiUrl: '%aci.api_url%'
+            $entityId: '%env(ACI_ENTITY_ID)%'
+            $apiKey: '%env(ACI_API_KEY)%'
+
+    App\Payment\Domain\Provider\Shift4\:
+        resource: '../src/Payment/Domain/Provider/Shift4/*'
+        tags: ['app.payment_provider']
+        arguments:
+            $httpClient: '@http_client'
+            $apiUrl: '%shift4.api_url%'
+            $apiKey: '%env(SHIFT4_API_KEY)%'
+
+    App\Payment\Domain\Factory\PaymentProviderFactory:
+        arguments:
+            $providers: !tagged_iterator app.payment_provider

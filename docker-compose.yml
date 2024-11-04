@@ -24,7 +24,7 @@ services:
       - ./docker/nginx/snippets:/etc/nginx/snippets
     networks:
       - nexus
-
+      
   database:
     image: postgres:16
     container_name: database
@@ -37,19 +37,6 @@ services:
       POSTGRES_PASSWORD: postgresql
     volumes:
       - dbdata:/var/lib/postgresql/data
-    networks:
-      - nexus
-
-  client_app:
-    container_name: client_app
-    build:
-      context: ./src/client/
-      dockerfile: ../../docker_client/development/Dockerfile
-    volumes:
-      - ./src/client:/app
-    ports:
-      - 3000:3000
-    restart: always
     networks:
       - nexus
 

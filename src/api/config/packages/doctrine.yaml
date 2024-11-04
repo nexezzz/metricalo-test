@@ -18,18 +18,12 @@ doctrine:
             Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
         auto_mapping: true
         mappings:
-            User:
+            Payment:
                 is_bundle: false
                 type: attribute
-                dir: '%kernel.project_dir%/src/User/Domain/Model'
-                prefix: 'App\User\Domain\Model'
-                alias: User
-            Post:
-                is_bundle: false
-                type: attribute
-                dir: '%kernel.project_dir%/src/Post/Domain/Model'
-                prefix: 'App\Post\Domain\Model'
-                alias: Post
+                dir: '%kernel.project_dir%/src/Payment/Domain/Model'
+                prefix: 'App\Payment\Domain\Model'
+                alias: Payment
         controller_resolver:
             auto_mapping: false
 
