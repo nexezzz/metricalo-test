@@ -19,6 +19,7 @@ class ACIPaymentProvider implements PaymentProviderInterface
         $this->httpClient = $httpClient;
         $this->apiKey = $apiKey;
         $this->entityId = $entityId;
+        $this->apiUrl = $apiUrl;
     }
 
     public function processPayment(float $amount, string $currency, string $cardNumber, string $cardExpMonth, string $cardExpYear, string $cardCVV): PaymentResponseDTO

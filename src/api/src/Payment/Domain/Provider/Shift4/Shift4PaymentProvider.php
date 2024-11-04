@@ -28,7 +28,7 @@ class Shift4PaymentProvider implements PaymentProviderInterface
             ];
 
             $requestData = [
-                'amount' => number_format($amount, 2, '.', ''),
+                'amount' => $amount,
                 'currency' => $currency,
                 'card' => [
                     'number' => $cardNumber,

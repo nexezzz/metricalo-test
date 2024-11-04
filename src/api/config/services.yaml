@@ -52,3 +52,6 @@ services:
     App\Payment\Domain\Factory\PaymentProviderFactory:
         arguments:
             $providers: !tagged_iterator app.payment_provider
+    
+    App\Payment\Application\Command\ProcessPaymentCommand:
+        tags: ['console.command']
