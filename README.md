@@ -15,10 +15,20 @@ This project includes a Docker setup to simplify environment configuration. Make
    $ docker-compose up -d --build
    $ run the ./executor.sh file (currently there is only one command which will do composer install. If having trouble executing the file just run `docker exec api_app bash -c "composer install"`)
 
-2. **Testing:**
+2. **Setting up environment file**
+    ACI_API_KEY=""
+    ACI_ENTITY_ID=""
+    SHIFT4_API_KEY=""
+    
+    These variables in .env are must have if we want payment Providers to work. 
+    'ACI_ENTITY_ID' and 'ACI_API_KEY' will already have a value for testing purposes, provided by the ACI.
+    For Shift4 you will need to create an account, test sandbox, and go to 'GET API KEYS' and take the private key, and use it in the .env file for 'SHIFT4_API_KEY'
+    Save the file, and start testing.
+
+3. **Testing:**
 The following command will run all the tests. Currently there are unit tests for the endpoint and the command and integration test for the endpoint. Run the following command:
     docker exec -it api_app vendor/bin/phpunit
 
-3. **API and Command**
-Accessing the API and running the command are described in the file named api_command_docs_v1.pdf
+4. **API and Command**
+Accessing the API and running the command are described in the file named payment_process_endpoint_v1.pdf and payment_process_command_v1.pdf
 
