@@ -1,4 +1,9 @@
 <?php
+/**
+ * Summary of namespace App\Payment\Infrastructure\Persistence
+ * 
+ * Not in the requirements for this task, but for future development and interactiong with DB for example.
+ */
 namespace App\Payment\Infrastructure\Persistence;
 
 use App\Payment\Domain\Model\Payment;

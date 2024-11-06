@@ -27,8 +27,10 @@ This project includes a Docker setup to simplify environment configuration. Make
 
 3. **Testing:**
 The following command will run all the tests. Currently there are unit tests for the endpoint and the command and integration test for the endpoint. Run the following command:
-    docker exec -it api_app vendor/bin/phpunit
+    $ docker exec -it api_app vendor/bin/phpunit
 
 4. **API and Command**
 Accessing the API and running the command are described in the file named payment_process_endpoint_v1.pdf and payment_process_command_v1.pdf
 
+5. **POSTMAN**
+Postman collection for easy testing the endpoint is provided and the file is called metricalo.postman_collection.json, import this collection and you should have 2 POST requests to test the endpoint.
